@@ -36,7 +36,7 @@ class BackupPacker:
                 tar.add(
                     '{0}/{1}'.format(self.temp_path, file),
                     arcname='{0}/{1}'.format(self.backup_basename, os.path.basename(file)),
-                    recursive=False,
+                    recursive=True,
                     filter=self._filter
                 )
         if not os.path.exists(self.pack_to):
