@@ -38,14 +38,17 @@ class DropboxTransporter:
             else:
                 with tqdm(total=size) as progress:
                     upload_session = self.dropbox_session.files_upload_session_start(
-                        f.read(self.chunk_size)
+                        f.read(self.chunk_size),
                     )
                     progress.update(self.chunk_size)
                     cursor = dropbox.dropbox.files.UploadSessionCursor(
                         session_id=upload_session.session_id,
                         offset=f.tell()
                     )
-                    upload_commit = dropbox.dropbox.files.CommitInfo(path=file_to)
+                    upload_commit = dropbox.dropbox.files.CommitInfo(
+                        path=file_to,
+                        mode=self.write_mode
+                    )
                     while f.tell() < size:
                         if (size - f.tell()) <= self.chunk_size:
                             self.logger.info(
