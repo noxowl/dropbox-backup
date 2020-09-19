@@ -50,19 +50,15 @@ class BackupPacker:
             ))
 
     def _filter(self, tarinfo: tarfile.TarInfo):
+        size = tarinfo.size
         if tarinfo.isdir():
-            self.logger.info(
-                'pack {0} → {1} byte'.format(
-                    tarinfo.name,
-                    dir_size(os.path.join(self.temp_path, os.path.basename(tarinfo.name)))
-                )
+            size = dir_size(os.path.join(self.temp_path, os.path.basename(tarinfo.name)))
+        self.logger.info(
+            'pack {0} → {1} byte'.format(
+                tarinfo.name,
+                size
             )
-        else:
-            self.logger.info(
-                'pack {0} → {1} byte'.format(
-                    tarinfo.name,
-                    tarinfo.size)
-            )
+        )
         return tarinfo
 
     def run(self):
