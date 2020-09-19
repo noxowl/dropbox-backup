@@ -26,5 +26,6 @@ ENV DROPBOX_BACKUP_FROM /srv/origin
 ENV DROPBOX_BACKUP_TO /backup
 ENV DROPBOX_BACKUP_DEBUG_MODE false
 ENV DROPBOX_BACKUP_TEST_MODE false
+ENV DROPBOX_BACKUP_LOG_FOR_HUMAN false
 
 CMD ["pypy3", "-c", "from dropbox_backup import app; app.execute();"]

@@ -24,6 +24,7 @@ class DropboxBackup:
         self.dropbox_write_mode = os.environ['DROPBOX_BACKUP_WRITE_MODE']
         self.backup_from = os.environ['DROPBOX_BACKUP_FROM']
         self.backup_to = os.environ['DROPBOX_BACKUP_TO']
+        self.is_log_for_human = is_true(os.environ['DROPBOX_BACKUP_LOG_FOR_HUMAN'])
         self.backup_basename = os.path.basename(self.backup_to)
         self.pack_to = '/tmp/{0}.tar.gz'.format(self.backup_basename)
 
@@ -32,7 +33,8 @@ class DropboxBackup:
         self.backup = BackupPacker(
             pack_from=self.backup_from,
             pack_to=self.pack_to,
-            basename=self.backup_basename
+            basename=self.backup_basename,
+            for_human=self.is_log_for_human
         )
         self.dropbox = DropboxTransporter(
             access_token=self.access_token,
