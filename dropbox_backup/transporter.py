@@ -47,7 +47,8 @@ class DropboxTransporter:
                     )
                     upload_commit = dropbox.dropbox.files.CommitInfo(
                         path=file_to,
-                        mode=self.write_mode
+                        mode=self.write_mode,
+                        autorename=self.autorename
                     )
                     while f.tell() < size:
                         if (size - f.tell()) <= self.chunk_size:
