@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM pypy:3.6-slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -27,4 +27,4 @@ ENV DROPBOX_BACKUP_TO /backup
 ENV DROPBOX_BACKUP_DEBUG_MODE false
 ENV DROPBOX_BACKUP_TEST_MODE false
 
-CMD ["python", "-c", "from dropbox_backup import app; app.execute();"]
+CMD ["pypy3", "-c", "from dropbox_backup import app; app.execute();"]
